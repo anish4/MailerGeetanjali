@@ -39,7 +39,7 @@ tranEmailApi
         <p>Nayabazaar,Khusibu,Kathmandu</p>
                 `,
     params: {
-      role: "Walter",
+      role: "walter white",
     },
   })
   .then(console.log)
