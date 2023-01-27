@@ -1,4 +1,21 @@
 const express = require("express");
-router = express.Router();
+const router = express.Router();
+const {
+  sendMailToCustomer,
+  sendContactMailToHR,
+} = require("../utils/sendmail");
 
-router.post("/contact", (req, res) => {});
+router.post("/contact", (req, res) => {
+  console.log(req.body);
+  const sendToCustomer = sendMailToCustomer(req.body.name, req.body.email);
+  const sendToHR = sendContactMailToHR(req.body);
+  Promise.all([sendToCustomer, sendToHR])
+    .then(() => {
+      res.status(200).json("Email sent successfully");
+    })
+    .catch((e) => {
+      res.status(400).json("Error occured");
+    });
+});
+
+module.exports = router;
